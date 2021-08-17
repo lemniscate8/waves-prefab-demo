@@ -19,9 +19,9 @@
 emp::web::Document doc("emp_base");
 waves_prefab_demo::Config cfg;
 
-std::vector<int> random_walker({0,0});
-void take_step(std::vector<int> & pt, bool diag=false);
-double distance(std::vector<int> & pt);
+emp::vector<int> random_walker({0,0});
+void take_step(emp::vector<int> & pt, bool diag=false);
+double distance(emp::vector<int> & pt);
 
 int main()
 {
@@ -87,10 +87,11 @@ int main()
     config_panel.ExcludeGroup("PRESENTATION");
   }
 
+  std::cout << "Hello, browser!" << std::endl;
   return 0;
 }
 
-void take_step(std::vector<int> & pt, bool diag) {
+void take_step(emp::vector<int> & pt, bool diag) {
   int main = (rand() % 2) ? 1 : -1;
   if(diag) {
     if(rand() % 2) {
@@ -107,6 +108,6 @@ void take_step(std::vector<int> & pt, bool diag) {
   }
 }
 
-double distance(std::vector<int> & pt) {
+double distance(emp::vector<int> & pt) {
   return sqrt(pt[0]*pt[0] + pt[1]*pt[1]);
 }
