@@ -3,46 +3,110 @@
 //  Released under MIT license; see LICENSE
 
 #include <iostream>
+#include <math.h>
 
-#include "emp/prefab/ConfigPanel.hpp"
-#include "emp/web/TextArea.hpp"
 #include "emp/web/web.hpp"
+#include "emp/web/Button.hpp"
+#include "emp/web/Div.hpp"
+#include "emp/web/Element.hpp"
+#include "emp/prefab/ReadoutPanel.hpp"
+#include "emp/tools/string_utils.hpp"
 
 #include "waves-prefab-demo/config_setup.hpp"
 #include "waves-prefab-demo/example.hpp"
-#include "waves-prefab-demo/ExampleConfig.hpp"
+#include "waves-prefab-demo/DemoConfig.hpp"
 
-namespace UI = emp::web;
-
-UI::Document doc("emp_base");
-
+emp::web::Document doc("emp_base");
 waves_prefab_demo::Config cfg;
+
+std::vector<int> random_walker({0,0});
+void take_step(std::vector<int> & pt, bool diag=false);
+double distance(std::vector<int> & pt);
 
 int main()
 {
-  doc << "<h1>Hello, browser!</h1>";
+  // ----- Step to the tune -----
+  emp::web::Div step{"step"};
+  doc << step;
+  step << emp::web::Button([]() {
+    take_step(random_walker);
+    std::cout << random_walker[0] << " " << random_walker[1] << std::endl;
+  }, "Step!");
 
-  // Set up a configuration panel for web application
+  // ----- Basic buttons -----
+  emp::web::Div click{"click"};
+  doc << click;
+  click << "<hr>";
+  emp::web::Element live{"span", "live"};
+  click << emp::web::Button([live]() mutable {
+    live.Redraw();
+  }, "Show me");
+  live << emp::web::Live(random_walker);
+  click << live;
+
+
+  // ----- Readout panel -----
+  emp::web::Div readout{"readout"};
+  doc << readout;
+  readout << "<hr>";
+  emp::prefab::ReadoutPanel stats{"Stats", 250};
+  stats.AddValues(
+    "Position", "the xy-coordinates of the random walker",
+    random_walker,
+    "Distance", "distance from the origin",
+    []() { return distance(random_walker); }
+  );
+  readout << stats;
+
+  // ----- Config panel -----
+  emp::web::Div config{"config"};
+  doc << config;
+  config << "<hr>";
+
   setup_config_web(cfg);
   cfg.Write(std::cout);
-  emp::prefab::ConfigPanel example_config_panel(cfg);
-  example_config_panel.ExcludeSetting("SUPER_SECRET");
-  example_config_panel.SetRange("SEED", "-1", "100", "1");
-  doc << example_config_panel;
+  emp::prefab::ConfigPanel config_panel(cfg, false, "pconfig");
+  config_panel.SetRange("SEED", "-1", "100", "1");
+  config << config_panel;
+  srand(cfg.SEED());
 
-  // An example to show how the Config Panel could be used
-  // to control the color of text in an HTML text area
-  UI::TextArea example_area("example_area");
-  example_area.SetSize(cfg.SIZE(), cfg.SIZE());
-  example_config_panel.SetOnChangeFun([](const std::string & setting, const std::string & value){
-    UI::TextArea example_area = doc.TextArea("example_area");
-    example_area.SetCSS("color", cfg.COLOR());
-    example_area.Redraw();
-  });
+  // ----- Presentation management -----
+  if(cfg.HIDE_STEP()) {
+    step.SetCSS("display", "none");
+  }
+  if(cfg.HIDE_CLICK()) {
+    click.SetCSS("display", "none");
+  }
+  if(cfg.HIDE_READOUT()) {
+    readout.SetCSS("display", "none");
+  }
+  if(cfg.HIDE_CONFIG()) {
+    config.SetCSS("display", "none");
+  }
+  if(cfg.HIDE_SUPER_SECRET()) {
+    config_panel.ExcludeGroup("PRESENTATION");
+  }
 
-  doc << example_area;
+  return 0;
+}
 
-  std::cout << "Hello, console!" << "\n";
+void take_step(std::vector<int> & pt, bool diag) {
+  int main = (rand() % 2) ? 1 : -1;
+  if(diag) {
+    if(rand() % 2) {
+      int secondary = (rand() < .5) ? 1 : -1;
+      pt[0] += main;
+      pt[1] += secondary;
+    }
+  } else {
+    if(rand() % 2) {
+      pt[0] += main;
+    } else {
+      pt[1] += main;
+    }
+  }
+}
 
-  return example();
+double distance(std::vector<int> & pt) {
+  return sqrt(pt[0]*pt[0] + pt[1]*pt[1]);
 }

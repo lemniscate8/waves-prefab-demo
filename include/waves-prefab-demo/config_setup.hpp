@@ -7,7 +7,7 @@
 #include "emp/web/UrlParams.hpp"
 #include "emp/web/web.hpp"
 
-#include "waves-prefab-demo/ExampleConfig.hpp"
+#include "waves-prefab-demo/DemoConfig.hpp"
 
 void use_existing_config_file(waves_prefab_demo::Config & config, emp::ArgManager & am) {
   if(std::filesystem::exists("waves-prefab-demo.cfg")) {
