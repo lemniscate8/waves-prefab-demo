@@ -16,13 +16,11 @@ Check out the live in-browser web app at [https://lemniscate8.github.io/waves-pr
 
 
 -   Free software: MIT license
--   Documentation: <https://waves-prefab-demo.readthedocs.io>. 
+-   Documentation: <https://waves-prefab-demo.readthedocs.io>.
 
 ## Features
 
--   TODO
-
-![cookie monster example](docs/assets/cookie.gif)
+-  Five sections showing a progression as components are being added to the application.
 
 ## Credits
 
@@ -33,7 +31,6 @@ This package uses [Empirical](https://github.com/devosoft/Empirical#readme), a l
 ## Dependencies
 
 To install [Empirical](https://github.com/devosoft/Empirical), pull down a clone of the Empirical repository.  See [Quick Start Guides](https://empirical.readthedocs.io/en/latest/QuickStartGuides) for directions on cloning and using the library.
-
 
   [https://lemniscate8.github.io/waves-prefab-demo]:
     https://lemniscate8.github.io/waves-prefab-demo
