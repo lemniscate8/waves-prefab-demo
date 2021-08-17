@@ -87,7 +87,7 @@ int main()
     config_panel.ExcludeGroup("PRESENTATION");
   }
 
-  std::cout << "Hello, browser!" << std::endl;
+  std::cout << "Hello, console!" << std::endl;
   return 0;
 }
 

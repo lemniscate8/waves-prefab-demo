@@ -28,3 +28,5 @@ package-lock.json
 node_modules/
 coverage_include/
 package.json
+debug_file
+package.json
