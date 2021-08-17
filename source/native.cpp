@@ -8,14 +8,14 @@
 
 #include "waves-prefab-demo/config_setup.hpp"
 #include "waves-prefab-demo/example.hpp"
-#include "waves-prefab-demo/ExampleConfig.hpp"
+#include "waves-prefab-demo/DemoConfig.hpp"
 
 // This is the main function for the NATIVE version of waves-prefab-demo.
 
 waves_prefab_demo::Config cfg;
 
 int main(int argc, char* argv[])
-{ 
+{
   // Set up a configuration panel for native application
   setup_config_native(cfg, argc, argv);
   cfg.Write(std::cout);
