@@ -9,7 +9,7 @@ git init
 echo "GH_TOKEN: ${GH_TOKEN}"
 echo "GITHUB_ACTOR: ${GITHUB_ACTOR}"
 echo "GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}"
-git remote add origin "https://${GITHUB_ACTOR}:${ GH_TOKEN }@github.com/${GITHUB_REPOSITORY}.git" > /dev/null 2>&1
+git remote add origin "https://${GITHUB_ACTOR}:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" > /dev/null 2>&1
 git checkout -b gh-pages
 git add .
 git commit --message "GitHub Action ${GITHUB_RUN_NUMBER}"
