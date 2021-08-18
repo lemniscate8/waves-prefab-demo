@@ -29,7 +29,7 @@ int main()
   emp::web::Div step{"step"};
   doc << step;
   step << emp::web::Button([]() {
-    take_step(random_walker);
+    take_step(random_walker, cfg.ALLOW_DIAGONALS());
     std::cout << random_walker[0] << " " << random_walker[1] << std::endl;
   }, "Step!");
 
