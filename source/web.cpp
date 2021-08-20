@@ -93,15 +93,10 @@ int main()
 
 void take_step(emp::vector<int> & pt, bool diag) {
   int main = (rand() % 2) ? 1 : -1;
-  if(diag) {
+  if(diag && (rand() < .5)) {
     int secondary = (rand() < .5) ? 1 : -1;
-    if(rand() % 2) {
-      pt[1] = main;
-      pt[1] += secondary;
-    } else {
-      int index = (rand() < .5) ? 0 : 1;
-      pt[index] = main;
-    }
+    pt[1] = main;
+    pt[1] += secondary;
   } else {
     int index = (rand() < .5) ? 0 : 1;
     pt[index] += main;
