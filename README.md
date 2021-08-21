@@ -13,7 +13,7 @@
 Demo of Empirical web components
 
 Check out the live in-browser web app at [https://lemniscate8.github.io/waves-prefab-demo][].
-
+Check out associated slides at [https://github.com/lemniscate8/waves-prefab-presentation][];
 
 -   Free software: MIT license
 -   Documentation: <https://waves-prefab-demo.readthedocs.io>.
